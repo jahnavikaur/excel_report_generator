@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Report</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        h2 { text-align: center; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th { background-color: #f2f2f2; }
+
+        .left { text-align: left; }
+
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>CODIFICATION REPORT</h2>
+
+<table>
+    <tr>
+        <th rowspan="2">S.No</th>
+        <th rowspan="2">AHSP / DPSU</th>
+        <th rowspan="2">Equipment Name</th>
+        <th rowspan="2">Codification Target (25-27)</th>
+        <th rowspan="2">As per DPSUs AHSP MRLs</th>
+        <th colspan="4">PROGRESS</th>
+        <th rowspan="2">Updation Target (25-27)</th>
+        <th rowspan="2">Updation Done</th>
+        <th rowspan="2">% Updated</th>
+        <th rowspan="2">Remarks</th>
+    </tr>
+
+    <tr>
+        <th>Total Items Codified</th>
+        <th>Fwd to DCA</th>
+        <th>NSN Allotted</th>
+        <th>Returned</th>
+    </tr>
+
+    {% set serial = 1 %}
+
+    {% for dpsu, items in data.items() %}
+        {% set rowspan = items|length %}
+        
+        {% for item in items %}
+        <tr>
+            <td>{{ serial }}</td>
+
+            {% if loop.first %}
+            <td rowspan="{{ rowspan }}">{{ dpsu }}</td>
+            {% endif %}
+
+            <td class="left">{{ item.Equipment }}</td>
+
+            <td></td>
+            <td></td>
+
+            <td>{{ item.Total_Codified }}</td>
+            <td>{{ item.Fwd_DCA }}</td>
+            <td>{{ item.NSN }}</td>
+            <td>{{ item.Returned }}</td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        {% set serial = serial + 1 %}
+        {% endfor %}
+    {% endfor %}
+
+</table>
+
+<div class="signature">
+    <div><p>Prepared By</p></div>
+    <div><p>Checked By</p></div>
+    <div><p>Approved By</p></div>
+</div>
+
+</body>
+</html>
